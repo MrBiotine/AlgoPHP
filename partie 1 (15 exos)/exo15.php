@@ -12,7 +12,7 @@ $p2 = new Personne("DUCHEMIN", "Alice", "1985-01-17") ;</p><br>
 Class Personne {
 
     // on type les variables
-    //les attributs de la classe personne sont en private, seule la classe et ses instances y ont accès avec le sélecteur ->  
+    /*les attributs de la classe personne sont en private, seule cette classe y a un accès direct avec le sélecteur -> , à l'extérieur de cette classe , l'accès aux attributs passe par des getter et des setter */
 
     private string $_name ;           
     private string $_surname ;
@@ -25,7 +25,7 @@ Class Personne {
         $this->_name = $name;
         $this->_surname = $surname;
         $this->_birthdate = new DateTime($birthdate) ; 
-              
+        $this->_age = $this->timeAge();    
     }
      
 
@@ -39,10 +39,14 @@ Class Personne {
         return $this->_surname;
     }
 
-    public function getBirthDate($format){
+    public function getBirthDate(){
 
-        return $this->toString($this->_birthdate,$format);
+        return $this->_birthdate;
     } 
+
+    public function getAge(){
+        return $this->_age;
+    }
 
     //faite les setter
     public function setName($name){
@@ -57,11 +61,11 @@ Class Personne {
        $this->_birthdate = new DateTime($birthdate);
     } 
 
-//Et une methode pour calculer l'age à partir de la date de naissance ;
+//Une methode reservée à la classe pour calculer l'age à partir de la date de naissance :
 
-    public function getAge()
+    private function timeAge()
     {
-    //Déclaration de la date actuell    
+    //Déclaration de la date actuelle    
     $dateJour = new DateTime();
     
     //On calcule la différence
@@ -71,11 +75,12 @@ Class Personne {
     return $difference->format('%Y');
     }
 
-    /*faite une fonction __toString elle sevira a convertir un objet en chaine de carctère (string) afin de faciliter l'affichage. */
+    /*Surcharge de la methode magique __toString qui définira automatiquement le comportement de l'objet lorsqu'il est traité comme une chaine de caractère , par exemple, ce que echo $obj; affichera. */
 
-    private function toString(DateTime $date, string $format) : string {
-        return date_format($date,$format);
-    } 
+    public function __toString()
+    {
+        return $this->_surname." ".$this->_name." ".$this->_age." ans.";
+    }
 
 }
 
@@ -100,8 +105,8 @@ return $difference->format('%Y');
 
 */
 
-// Affichage du Prénom Nom et l'age actuel de chaque instance Personne :
-echo $p1->getBirthDate("c") ."<br><br>";
+echo ($p1->getBirthDate())->format('d-m-Y') ."<br><br>"; //<== ceci est un test
 
-echo $p1->getSurname()." ".$p1->getName()." a ".$p1->getAge()." ans. <br><br>" ;
-echo $p2->getSurname()." ".$p2->getName()." a ".$p2->getAge()." ans .<br><br>" ;
+// Affichage du Prénom Nom et l'age actuel de chaque instance Personne :
+echo $p1."<br>" ;
+echo $p2."<br>" ;
