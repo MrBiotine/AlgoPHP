@@ -79,7 +79,7 @@ Class Personne {
 
     public function __toString()
     {
-        return $this->_surname." ".$this->_name." ".$this->_age." ans.";
+        return $this->_surname." ".$this->_name." a ".$this->_age." ans.";
     }
 
 }
