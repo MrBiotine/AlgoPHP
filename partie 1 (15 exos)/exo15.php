@@ -21,7 +21,7 @@ Class Personne {
 
 /* on définie ("constuit") la méthode "magique" qui permet d'initilaiser les attributs de chaque instance que nous allons créer avec " new Personne($name,$surname,$birthdate) " */
 
-    public function __construct($name,$surname, string $birthdate){
+    public function __construct(string $name,string $surname, string $birthdate){
         $this->_name = $name;
         $this->_surname = $surname;
         $this->_birthdate = new DateTime($birthdate) ; 

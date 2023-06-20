@@ -11,7 +11,7 @@ $totalTTC2 = $nbArticles * $prixHT * (1 + $tauxTVA);
 $arrondiTTC = round(($totalTTC2),1);
 
 echo"Prix unitaire de l’article : $prixHT € <br>";
-echo"Quantité : $nbArticle <br>";
+echo"Quantité : $nbArticles <br>";
 echo"Taux de TVA : $tauxTVA <br>";
 echo "Le montant de la facture à régler est de : $totalTTC2 € <br>";
 echo "Le total arrondie à une décimale : $arrondiTTC € <br>";
