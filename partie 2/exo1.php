@@ -14,7 +14,7 @@ Vous devrez appeler la fonction comme suit : convertirMajRouge($texte) ;</p>
 $texte = "« Mon texte en paramètre »";
 
 function convertirMajRouge($texte){
-    echo "<p class='customTxt'>$texte</>"
+    echo "<p class='customTxt'>$texte</>";
 }
 convertirMajRouge($texte);
 
