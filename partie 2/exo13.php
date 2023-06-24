@@ -14,7 +14,7 @@ class Voiture {
     private int $_nbPortes;
     private float $_vitesseActuelle;
 
-    private boolean $_faitVroom ;
+    private bool $_faitVroom ;
     
 //Le constructeur "magique"
 public function __construct(string $marque, string $modele, int $nbPortes){
@@ -35,19 +35,19 @@ public function getModele(){
 public function getNbPortes(){
     return $this->_nbPortes;    
 }
+public function getIdVehicule(){    
+    return $this->_marque." ".$this->_modele; 
+}
 
 public function getVitesseActuelle(){
-    echo "La vitesse du véhicule " . $this->getIdVehicule() . " est de : $this->vitesseActuelle km / h<br />";
+    echo "La vitesse du véhicule " . $this->getIdVehicule() . " est de : $this->_vitesseActuelle km / h <br>";
     return $this->_vitesseActuelle;    
 }
 public function getFaitVroom() {
     return $this->_faitVroom;
 }
 
-public function getIdVehicule(){
-    
-        return $this->vitesseActuelle;
-}
+
 
 //les setter - -mutateurs
 public function setMarque(string $marque){
@@ -62,15 +62,88 @@ public function setNbPortes(int $nbPortes){
 //  public function setVitesseActuelle($vitesseActuelle){}, à la place on définit accelerer(deltaV) et ralentir(deltaV)
 //  public function setFaitVroom($DemarreOuNon){}, à la place on définit demarrer() et stopper()
 
-public function demarrer
-
-
-
+public function demarrer(){
+    if ($this->_faitVroom){
+        echo "Le véhicule est déjà démarré <br>";
+    }
+    else {
+        $this->_faitVroom = true ;
+        echo "Le véhicule". $this->getIdVehicule() . " est démarré <br>";
+    }
 }
 
+// arrete le véhicule, met la vitesse à 0 et éteint le moteur
+public function stopper(){
+    if ($this->_faitVroom){
+        $this->_vitesseActuelle = 0;
+        $this->_faitVroom = false;
+        echo "Le véhicule ". $this->getIdVehicule() . " est stoppé <br>";
+    }else {
+        echo "Le véhicule est déjà stoppé ! <br>";
+    }
+}
+public function accelerer ($deltaV){
+    if ($this->_faitVroom){
+        $this->_vitesseActuelle += $deltaV;
+        echo "Le véhicule". $this->getIdVehicule() . " accélère de $deltaV km/h <br>";
+    }else {
+        echo "Pour accélèrer il faut démarrer le véhicule ". $this->getIdVehicule()."<br>" ;
+    }
+}
+public function ralentir ($deltaV){
+    if ($this->_faitVroom){
+        if ($deltaV < $this->_vitesseActuelle){
+            $this->_vitesseActuelle -= $deltaV;
+            echo "Le véhicule". $this->getIdVehicule() . " ralentit de $deltaV km/h <br>";
+        }else{
+            
+            echo "Le véhicule". $this->getIdVehicule() . " a ralentit de $this->_vitesseActuelle jusqu' à l'arrêt, moteur allumé.<br>";
+            echo "Vous pouvez accélèrer ou stopper le moteur<br>";
+            $this->_vitesseActuelle = 0;
+        }
+    }else{
+        echo "Le véhicule". $this->getIdVehicule() . " est déjà stoppé !!.<br>";
+        echo "Vous devez demarrer() pour pouvoir accelerer(), ralentir() ou stopper() <br>";
+    }
+}
+//Overriding de la méthode magique __toString() pour nous faciliter l'affichage
+public function __toString(){
+    $message = "<br>
+                Infos véhicule " . $this->getIdVehicule() . "<br>
+                ***************************<br>
+                Nom et modèle du véhicule : " . $this->getIdVehicule() . "<br>
+                Nombre de portes : $this->_nbPortes. <br>
+                Le véhicule $this->_marque est " . ($this->_faitVroom ? "démarré" : "à l'arrêt") . "<br>
+                Sa vitesse actuelle est de : $this->_vitesseActuelle km / h <br>
+                <br>";
+    return $message; 
 
+}
+}
+//tests et affichages 
 
+$bar1 = new Voiture("Peugeot", "408", 5);
+$bar2 = new Voiture("Citroën", "C4", 3);
 
+$bar1->demarrer();
+$bar1->accelerer(50);
+
+$bar2->demarrer();
+$bar2->stopper();
+$bar2->accelerer(20);
+
+$bar1->getVitesseActuelle();
+$bar2->getVitesseActuelle();
+
+echo $bar1 ;
+echo $bar2 ;
+
+echo "<br>************BONUS******************<br>";
+
+$bar1->ralentir(27.23);
+echo $bar1;
+$bar1->ralentir(40);
+echo $bar1;
 
 
 

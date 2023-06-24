@@ -75,7 +75,7 @@ Class Personne {
     return $difference->format('%Y');
     }
 
-    /*Surcharge de la methode magique __toString qui définira automatiquement le comportement de l'objet lorsqu'il est traité comme une chaine de caractère , par exemple, ce que echo $obj; affichera. */
+    /*Surcharge (overrinding)  la methode magique __toString qui définira automatiquement le comportement de l'objet lorsqu'il est traité comme une chaine de caractère , par exemple, ce que echo $obj; affichera. */
 
     public function __toString()
     {
